@@ -16,7 +16,7 @@
     '*NUEVO PEDIDO WEB · ARCHER*',`Cliente: ${data.name}`,`Teléfono: ${data.phone}`,'', '*PRODUCTOS*',
     ...rows.map((r,i)=>`${i+1}. ${r.product.brand} ${r.product.name} — ${r.variant.label}${r.variant.sku?' | Código: '+r.variant.sku:''}\nCantidad: ${r.quantity} | ${r.unitCents===null?'Precio por cotizar':`Unidad: ${money(r.unitCents)} | Subtotal: ${money(r.unitCents*r.quantity)}`}`),
     '',`${t.hasQuote?'Subtotal conocido':'Total de productos a pagar'}: ${money(t.totalCents)}`,t.hasQuote?'Hay productos pendientes de cotización.':'','Envío: costo y cobertura por coordinar. No incluido en el total.','Estado del pago: PENDIENTE DE COORDINACIÓN','',
-    '*ENTREGA*',`Departamento: ${data.department}`,`Ciudad / municipio: ${data.city}`,`Dirección: ${data.address}`,`Ubicación / referencia: ${data.location}`,data.notes?'Notas: '+data.notes:'','',
+    '*ENTREGA*',data.department?`Departamento: ${data.department}`:'',data.city?`Ciudad / municipio: ${data.city}`:'',data.address?`Dirección: ${data.address}`:'',`Ubicación / referencia: ${data.location}`,data.notes?'Notas: '+data.notes:'','',
     '*FACTURACIÓN*',data.invoice==='si'?`Razón social: ${data.business}\nNIT / CI: ${data.taxId}`:'Factura: no solicitada en el formulario','',
     'Solicito confirmar disponibilidad, entrega y forma de pago antes de finalizar la compra.'
   ].filter(x=>x!=='').join('\n');}

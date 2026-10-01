@@ -15,3 +15,5 @@ const msg=S.orderMessage(cart,C,data);for(const text of ['Total de productos a p
 assert.ok(!msg.includes('Descuento'));assert.ok(!msg.includes('Ahorro'));
 const ids=new Set();for(const p of C){assert.ok(fs.existsSync(path.join(root,p.image)),p.image);for(const v of p.variants){assert.ok(!ids.has(v.id),v.id);ids.add(v.id);assert.ok(fs.existsSync(path.join(root,v.image)),v.image);assert.ok(v.listCents===null||(Number.isInteger(v.listCents)&&v.listCents>0),v.id)}}
 console.log(`PASS: list-price checkout, reference markup rounding, totals, quote-only items, invalid carts, order message, ${C.length} families / ${ids.size} variants and image references.`);
+
+const simple=S.orderMessage(cart,C,{name:"Prueba",phone:"70000000",location:"Ciudad y direccion",invoice:"si",business:"Prueba",taxId:"1234567",notes:""}); assert.ok(!simple.includes("undefined"));assert.ok(!simple.includes("Notas:"));assert.ok(simple.includes("Ciudad y direccion"));assert.equal(S.referenceCents(10000),13000);
