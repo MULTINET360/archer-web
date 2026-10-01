@@ -35,3 +35,10 @@ Comprueba precio final de lista y referencia comparativa, redondeos, cantidades,
 ## Antes de operar públicamente
 
 Validar vigencia de precios, política comercial, tarifas/cobertura de entrega y datos de catálogo señalados en `NOTAS-CATALOGO.md`. Publicación de revisión privada mediante Sites; el dominio archer.com.bo no se modifica.
+
+
+## Revisión de Marketing — 1 de octubre de 2026
+
+La publicación navegable es https://lively-lily-a0d45a.netlify.app/. Netlify se actualiza mediante carga manual de `dist`; los cambios en GitHub no se despliegan automáticamente.
+
+`revision.js`, `revision.css` y `revision-assets.js` incorporan los artes de Web recursos 2, la portada rotativa, páginas por marca, Historia y preguntas frecuentes. Los precios incluyen impuestos y todas las ventas se facturan. Pago y envío se coordinan por WhatsApp; no hay pasarela de pago ni tarifa de entrega automática.
