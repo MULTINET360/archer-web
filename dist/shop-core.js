@@ -15,10 +15,10 @@
   function orderMessage(cart,catalog,data,markup=30){const rows=lines(cart,catalog,markup),t=totals(cart,catalog,markup);return [
     '*NUEVO PEDIDO WEB · ARCHER*',`Cliente: ${data.name}`,`Teléfono: ${data.phone}`,'', '*PRODUCTOS*',
     ...rows.map((r,i)=>`${i+1}. ${r.product.brand} ${r.product.name} — ${r.variant.label}${r.variant.sku?' | Código: '+r.variant.sku:''}\nCantidad: ${r.quantity} | ${r.unitCents===null?'Precio por cotizar':`Unidad: ${money(r.unitCents)} | Subtotal: ${money(r.unitCents*r.quantity)}`}`),
-    '',`${t.hasQuote?'Subtotal conocido':'Total de productos a pagar'}: ${money(t.totalCents)}`,t.hasQuote?'Hay productos pendientes de cotización.':'','Envío: costo y cobertura por coordinar. No incluido en el total.','Estado del pago: PENDIENTE DE COORDINACIÓN','',
-    '*ENTREGA*',data.department?`Departamento: ${data.department}`:'',data.city?`Ciudad / municipio: ${data.city}`:'',data.address?`Dirección: ${data.address}`:'',`Ubicación / referencia: ${data.location}`,data.notes?'Notas: '+data.notes:'','',
+    '',`${t.hasQuote?'Subtotal conocido':'Total de productos a pagar'}: ${money(t.totalCents)}`,t.hasQuote?'Hay productos pendientes de cotización.':'','Envío: GRATIS (Bs 0,00). Impuestos incluidos.',data.paymentReported&&!t.hasQuote?'Estado del pago: REPORTADO POR EL CLIENTE · PENDIENTE DE VERIFICACIÓN BANCARIA':'Estado del pago: PENDIENTE DE COORDINACIÓN','',
+    '*ENTREGA*',data.department?`Departamento: ${data.department}`:'',data.city?`Ciudad / municipio: ${data.city}`:'',data.address?`Dirección: ${data.address}`:'',`Ubicación / referencia: ${data.location}`,data.latitude&&data.longitude&&Number.isFinite(Number(data.latitude))&&Number.isFinite(Number(data.longitude))?'Punto de entrega: https://www.google.com/maps?q='+encodeURIComponent(data.latitude+','+data.longitude):'',data.notes?'Notas: '+data.notes:'','',
     '*FACTURACIÓN*',data.invoice==='si'?`Razón social: ${data.business}\nNIT / CI: ${data.taxId}`:'Factura: no solicitada en el formulario','',
-    'Solicito confirmar disponibilidad, entrega y forma de pago antes de finalizar la compra.'
+    data.paymentReported&&!t.hasQuote?'Adjuntaré el comprobante en este chat. Verificar el abono y el importe antes de facturar. Esta solicitud no acredita un pago confirmado.':'Solicito confirmar disponibilidad, entrega y forma de pago antes de finalizar la compra.'
   ].filter(x=>x!=='').join('\n');}
   const api={finalCents,referenceCents,normalizeCart,lines,totals,money,orderMessage};if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.ShopCore=api;
 })(typeof window==='undefined'?globalThis:window);
