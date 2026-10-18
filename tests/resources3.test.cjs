@@ -10,7 +10,7 @@ for(const [i,p] of catalog.entries()){assert.equal(p.id,before[i].id);assert.equ
 assert.match(catalog.find(p=>p.id==='antigrasa').image,/resources3.*antigrasa/);
 for(const file of Object.values(ctx.window.RESOURCE3_ASSETS))assert.ok(fs.existsSync(path.join(root,file)),file);
 const css=fs.readFileSync(path.join(root,'resources3.css'),'utf8');for(const match of css.matchAll(/url\('([^']+)'\)/g))assert.ok(fs.existsSync(path.join(root,match[1])),match[1]);
-const core=require('../dist/shop-core.js');const cart=[{variantId:'antigrasa-1',quantity:2}],data={name:'Test',phone:'70000000',location:'Test',invoice:'si',business:'Test',taxId:'1234567',paymentReported:true};
-const msg=core.orderMessage(cart,catalog,data);assert.match(msg,/PENDIENTE DE VERIFICACIÓN BANCARIA/);assert.match(msg,/Envío: GRATIS/);assert.ok(!msg.includes('undefined'));
+const core=require('../dist/shop-core.js');const cart=[{variantId:'antigrasa-1',quantity:2}],data={name:'Test',phone:'70000000',location:'Test',invoice:'si',business:'Test',taxId:'1234567',paymentReported:true,deliveryMethod:'pickup'};
+const msg=core.orderMessage(cart,catalog,data);assert.match(msg,/PENDIENTE DE VERIFICACIÓN BANCARIA/);assert.match(msg,/Recojo en planta/);assert.ok(!msg.includes('undefined'));
 const quote=core.orderMessage([{variantId:'lavandina-8',quantity:1}],catalog,data);assert.ok(!quote.includes('REPORTADO POR EL CLIENTE'));assert.match(quote,/pendientes de cotización/);
 console.log('PASS: resource files, family imagery preserves every variant/price, unpaid quote flow and manual payment verification.');

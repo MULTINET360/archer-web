@@ -1,5 +1,7 @@
 # PAGINAWEB
 
+> Política vigente desde el 17 de octubre de 2026: precio de venta = lista × 1,30, sin precio tachado; delivery por radio y recojo en planta. Ver [actualización vigente](ACTUALIZACION-OCTUBRE-17.md). Esta política reemplaza las referencias históricas a precio final de lista y envío siempre gratuito que aparecen debajo.
+
 # Archer · propuesta comercial y tienda
 
 Sitio estático en `dist/`. Abrir con un servidor HTTP; no requiere instalación de dependencias.

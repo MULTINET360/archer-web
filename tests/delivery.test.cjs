@@ -1,0 +1,14 @@
+const assert=require('node:assert/strict'),S=require('../dist/shop-core.js');
+const at=km=>({latitude:S.deliveryPolicy.latitude+km/6371*180/Math.PI,longitude:S.deliveryPolicy.longitude});
+for(const [km,cost] of [[0,1000],[4.999,1000],[5.001,1500],[9.999,1500],[10.001,2000],[14.999,2000],[15.001,null]])assert.equal(S.delivery(10000,at(km)).feeCents,cost,`${km} km`);
+assert.equal(S.delivery(35000,at(4)).feeCents,1000);
+assert.equal(S.delivery(35001,at(4)).feeCents,0);
+assert.equal(S.delivery(35001,at(16)).feeCents,null);
+assert.equal(S.delivery(10000,{deliveryMethod:'pickup'}).feeCents,0);
+for(const data of [{},{latitude:'',longitude:''},{latitude:'x',longitude:2},{latitude:91,longitude:0}])assert.equal(S.delivery(50000,data).feeCents,null);
+const catalog=[{brand:'Archer',name:'Prueba',variants:[{id:'x',label:'5 L',listCents:10000}]}],cart=[{variantId:'x',quantity:1}];
+assert.equal(S.totals(cart,catalog).totalCents,13000);
+const msg=S.orderMessage(cart,catalog,{name:'Test',phone:'70000000',...at(4),paymentReported:true});
+assert.match(msg,/TOTAL A PAGAR: Bs 140,00/);assert.match(msg,/PENDIENTE DE VERIFICACIÓN BANCARIA/);
+const pending=S.orderMessage(cart,catalog,{name:'Test',phone:'70000000',paymentReported:true});assert.ok(!pending.includes('REPORTADO POR EL CLIENTE'));assert.match(pending,/No pagar todavía/);
+console.log('PASS: delivery bands, strict >350 threshold, pickup, coverage, invalid coordinates and WhatsApp payable amount.');
