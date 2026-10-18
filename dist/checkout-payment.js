@@ -31,7 +31,7 @@ function initializeDeliveryMap(){
  const lat=document.querySelector('[name=latitude]').value,lng=document.querySelector('[name=longitude]').value;
  if(lat!==''&&lng!==''&&Number.isFinite(Number(lat))&&Number.isFinite(Number(lng))){markDelivery(Number(lat),Number(lng),false);deliveryMap.setView([Number(lat),Number(lng)],16)}
  deliveryMap.on('click',event=>markDelivery(event.latlng.lat,event.latlng.lng));
- L.marker([S.deliveryPolicy.latitude,S.deliveryPolicy.longitude]).addTo(deliveryMap).bindPopup('Multi Internacional · Recojo en planta');
+ L.marker([S.deliveryPolicy.latitude,S.deliveryPolicy.longitude],{title:'Multi Internacional · Planta',icon:L.divIcon({className:'delivery-pin',html:'<span aria-hidden="true">⌂</span>',iconSize:[32,40],iconAnchor:[16,38]})}).addTo(deliveryMap).bindPopup('Multi Internacional · Recojo en planta');
  syncDelivery();
 }
 function markDelivery(lat,lng,save=true){
