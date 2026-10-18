@@ -34,3 +34,11 @@ run("route()");document.getElementById('delivery-method').value='pickup';run('sy
 location.hash='#institucional';run('route()');assert.equal(document.querySelectorAll('[data-technical]').length,17);run("openTechnical('antigrasa')");assert.match(document.getElementById('product-dialog').textContent,/Desengrasante líquido/);assert.match(document.querySelector('.technical-detail img').getAttribute('src'),/5/);
 run("openProduct('antigrasa',true)");assert.equal(document.querySelectorAll('#variant-select option').length,2);
 console.log('PASS: delivery calculation shown in QR total, unknown delivery blocks payment, pickup removes address requirement, 17 technical sheets and institutional formats.');
+location.hash='#institucional';run('route()');
+assert.equal(document.querySelector('main [data-product]'),null);
+assert.equal(document.querySelector('main a[href^="#tienda"]'),null);
+document.getElementById('sheet-search').value='ANTIGRASA';run('filterTechnicalSheets()');
+assert.equal([...document.querySelectorAll('[data-sheet]')].filter(e=>!e.hidden).length,1);
+document.getElementById('sheet-search').value='no-existe-xyz';run('filterTechnicalSheets()');assert.equal(document.getElementById('sheet-empty').hidden,false);
+run("openTechnical('antigrasa')");assert.equal(document.querySelector('#product-dialog [data-product]'),null);assert.match(document.querySelector('#product-dialog a').getAttribute('href'),/wa.me/);
+console.log('PASS: institutional section has no purchase actions; search, empty results and technical contact work.');
